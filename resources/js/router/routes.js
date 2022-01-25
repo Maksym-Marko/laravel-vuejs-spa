@@ -12,7 +12,7 @@ export default [
   { path: '/email/verify/:id', name: 'verification.verify', component: page('auth/verification/verify.vue') },
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
-  { path: '/home', name: 'home', component: page('home.vue') },
+  { path: '/home', name: 'home', component: page('home.vue') },  
   {
     path: '/settings',
     component: page('settings/index.vue'),
@@ -23,5 +23,9 @@ export default [
     ]
   },
 
-  { path: '*', component: page('errors/404.vue') }
+  { path: '/about', name: 'about', component: page('about.vue') },
+  { path: '/news', name: 'news', component: page('news/news.vue') },
+  { path: '/news/:slug', name: 'news-single', component: page('news/news-single.vue') },
+
+  { path: '*', name: 'page404', component: page('errors/404.vue') }
 ]

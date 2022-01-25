@@ -11,6 +11,10 @@ use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+// 
+use App\Models\Post;
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,4 +47,18 @@ Route::group(['middleware' => 'guest:api'], function () {
 
     Route::post('oauth/{driver}', [OAuthController::class, 'redirect']);
     Route::get('oauth/{driver}/callback', [OAuthController::class, 'handleCallback'])->name('oauth.callback');
+});
+
+// get news
+Route::get('get-news', function() {
+
+    return Post::orderBy('created_at', 'desc')->take(10)->get();
+
+});
+
+// get news item
+Route::post('get-news-item', function() {
+
+    return Post::where( 'post_slug', request( 'slug' ) )->get();
+
 });

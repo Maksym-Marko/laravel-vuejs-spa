@@ -15,6 +15,17 @@
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li> -->
+          <li class="nav-item">
+            <router-link :to="{ name: 'about' }" class="nav-link">
+              About
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'news' }" class="nav-link">
+              News
+            </router-link>
+          </li>
+          
         </ul>
 
         <ul class="navbar-nav ms-auto">
