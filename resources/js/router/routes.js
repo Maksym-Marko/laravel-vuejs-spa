@@ -23,9 +23,17 @@ export default [
     ]
   },
 
+  // common pages
   { path: '/about', name: 'about', component: page('about.vue') },
   { path: '/news', name: 'news', component: page('news/news.vue') },
   { path: '/news/:slug', name: 'news-single', component: page('news/news-single.vue') },
 
+  // admin panel
+  { path: '/admin', name: 'admin', component: page('admin/index.vue') },
+  { path: '/admin/news', name: 'admin.news', component: page('admin/news/index.vue') },
+  { path: '/admin/news/edit/:slug', component: page('admin/news/edit.vue') },
+  { path: '/admin/news/create', name: 'admin.news.create' ,component: page('admin/news/create.vue') },
+
+  // 404
   { path: '*', name: 'page404', component: page('errors/404.vue') }
 ]

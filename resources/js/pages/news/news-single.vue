@@ -47,7 +47,7 @@ export default {
           slug: this.$route.params.slug
         }
 
-        axios.post( '/api/get-news-item', data )
+        axios.post( '/api/admin/get-news-item', data )
           .then( ( res ) => {
 
             if( res.data.length === 0 ) {
@@ -69,7 +69,7 @@ export default {
   },
 
   mounted() {
-
+    
     this.getNewsItem()
 
   }

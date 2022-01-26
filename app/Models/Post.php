@@ -18,4 +18,5 @@ class Post extends Model
         'post_slug',
         'post_type'
     ];
+
 }

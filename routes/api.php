@@ -12,8 +12,9 @@ use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // 
-use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\AdminPostController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,17 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::group(['middleware' => 'admin:api'], function () {
+
+    Route::get( 'admin/get-news', [AdminPostController::class, 'index'] );
+    Route::post( 'admin/get-news-item', [AdminPostController::class, 'show'] );
+
+    Route::post( 'admin/news/create', [AdminPostController::class, 'store'] );
+    Route::post( 'admin/news/edit/{id}', [AdminPostController::class, 'update'] );
+    Route::post( 'admin/news/destroy/{id}', [AdminPostController::class, 'destroy'] );
+
+});
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', [LoginController::class, 'logout']);
@@ -50,15 +62,7 @@ Route::group(['middleware' => 'guest:api'], function () {
 });
 
 // get news
-Route::get('get-news', function() {
-
-    return Post::orderBy('created_at', 'desc')->take(10)->get();
-
-});
+Route::get('get-news', [PostController::class, 'index'] );
 
 // get news item
-Route::post('get-news-item', function() {
-
-    return Post::where( 'post_slug', request( 'slug' ) )->get();
-
-});
+Route::post('get-news-item', [PostController::class, 'show'] );

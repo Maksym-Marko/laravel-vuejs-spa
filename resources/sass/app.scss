@@ -1,5 +1,7 @@
 @import 'variables';
 
+@import '../fonts/fontawesome-free-6.0.0/css/all.min.css';
+
 @import '~bootstrap/scss/bootstrap';
 @import '~sweetalert2/dist/sweetalert2';
 @import '~@fortawesome/fontawesome-svg-core/styles';
@@ -10,3 +12,9 @@
 @import 'elements/transitions';
 
 @import 'components/server-error';
+
+.profile-photo {
+  width: 2rem;
+  height: 2rem;
+  margin: -.375rem 0;
+}

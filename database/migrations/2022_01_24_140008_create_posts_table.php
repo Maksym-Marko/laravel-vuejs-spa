@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->integer( 'post_author' );
             $table->longText('post_content');
-            $table->text('post_title');
+            $table->text('post_title')->unique();
             $table->text('post_excerpt');
             $table->string('post_status', 50);
             $table->string('post_slug', 250)->unique();

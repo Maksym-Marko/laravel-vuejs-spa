@@ -11,7 +11,7 @@
 
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="navbar-nav">
-          <locale-dropdown />
+          <!-- <locale-dropdown /> -->
           <!-- <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li> -->
@@ -43,12 +43,13 @@
                 {{ $t('settings') }}
               </router-link>
 
-              <div class="dropdown-divider" />
-              <a href="#" class="dropdown-item ps-3" @click.prevent="logout">
-                <fa icon="sign-out-alt" fixed-width />
-                {{ $t('logout') }}
-              </a>
+              <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item ps-3" @click.prevent="logout">
+                  <fa icon="sign-out-alt" fixed-width />
+                  {{ $t('logout') }}
+                </a>
             </div>
+
           </li>
           <!-- Guest -->
           <template v-else>
@@ -99,12 +100,6 @@ export default {
 </script>
 
 <style scoped>
-.profile-photo {
-  width: 2rem;
-  height: 2rem;
-  margin: -.375rem 0;
-}
-
 .container {
   max-width: 1100px;
 }
