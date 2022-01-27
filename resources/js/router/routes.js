@@ -25,8 +25,8 @@ export default [
 
   // common pages
   { path: '/about', name: 'about', component: page('about.vue') },
-  { path: '/news', name: 'news', component: page('news/news.vue') },
-  { path: '/news/:slug', name: 'news-single', component: page('news/news-single.vue') },
+  { path: '/news', name: 'news', component: page('news/index.vue') },
+  { path: '/news/:slug', name: 'news-single', component: page('news/single.vue') },
 
   // admin panel
   { path: '/admin', name: 'admin', component: page('admin/index.vue') },
