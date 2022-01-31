@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import axios from 'axios'
 
 export default {
@@ -107,8 +108,11 @@ export default {
 
   data: () => ({
     title: window.config.appName,
-    news: [],
     loaded: false
+  }),
+
+  computed: mapGetters({
+    news: 'admin/news/list'
   }),
 
   methods: {
@@ -140,16 +144,20 @@ export default {
 
     },
 
-    getNews() {
+    async getNews() {
 
-      axios.get( '/api/admin/get-news' )
-        .then( ( res ) => {
+      if( this.news.length === 0 ) {
 
-          this.news = res.data
+        let { data } = await axios.get( '/api/admin/get-news' )
 
-          this.loaded = true
-
+        // save news list
+        await this.$store.dispatch( 'admin/news/setNews', {
+          list: data
         } )
+
+      }
+
+      this.loaded = true
 
     }
 

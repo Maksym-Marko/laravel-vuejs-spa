@@ -8,3 +8,12 @@ export const UPDATE_USER = 'UPDATE_USER'
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
+
+// news.js
+export const SET_NEWS = 'SET_NEWS'
+
+/*
+* Admin panel
+*/
+// news.js
+export const ADMIN_SET_NEWS = 'ADMIN_SET_NEWS'
