@@ -37,10 +37,9 @@
 
       <div class="mb-3">
         <label class="form-label">Content</label>
-        <textarea
-          v-model="form.post_content"
-          class="form-control"
-          :class="{ 'is-invalid': form.errors.has('post_content') }"
+        <editor
+          :content="form.post_content"
+          @content="setContent"
         />
         <has-error :form="form" field="post_content" />
       </div>
@@ -61,16 +60,23 @@
 import axios from 'axios'
 import Form from 'vform'
 
+import Editor from '../../../components/Editor'
+
 export default {
   middleware: 'admin',
 
   layout: 'admin',
+
+  components: {
+    Editor
+  },
 
   metaInfo () {
     return { title: 'Admin panel. Edit News Item page.' }
   },
 
   data: () => ({
+    
     title: window.config.appName,
     newsItem: null,
 
@@ -86,6 +92,12 @@ export default {
   }),
 
   methods: {
+
+    setContent( content ) {
+
+      this.form.post_content = content
+
+    },
 
     async update () {
 
@@ -123,8 +135,9 @@ export default {
           slug: this.$route.params.slug
         }
 
-        axios.post( '/api/get-news-item', data )
+        axios.post( '/api/admin/get-news-item', data )
           .then( ( res ) => {
+
 
             if( res.data.length === 0 ) {
 
@@ -135,6 +148,8 @@ export default {
               this.newsItem = res.data[0]
 
               this.fillInForm()
+
+              this.tinymceInit()
 
             }
 
@@ -164,6 +179,26 @@ export default {
 
       }, 2000 )
 
+    },
+
+    tinymceInit() {
+
+      const _this = this
+
+      tinymce.remove(); 
+
+      tinymce.init({
+        selector: '#tinymce',
+        cache_suffix: '?v=' + Date.now(),
+        init_instance_callback: function( editor ) {
+          editor.on( 'change', function( e ) {
+
+            _this.form.post_content = editor.getContent()
+
+          });
+        }
+      })
+
     }
 
   },
@@ -178,6 +213,8 @@ export default {
 </script>
 
 <style scoped>
+  @import 'tinymce/skins/ui/oxide/skin.min.css';
+
   .mx-success {
     left: unset;
   }

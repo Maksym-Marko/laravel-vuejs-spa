@@ -47,17 +47,16 @@
 
       <div class="mb-3">
         <label class="form-label">Content</label>
-        <textarea
-          v-model="form.post_content"
-          class="form-control"
-          :class="{ 'is-invalid': form.errors.has('post_content') }"
+        <editor
+          :content="form.post_content"
+          @content="setContent"
         />
         <has-error
           v-if="form.errors.has('post_content')"
           :form="form"
           field="post_content"
         />
-      </div>
+      </div>      
 
       <button type="submit" class="btn btn-primary">Create</button>
 
@@ -75,10 +74,16 @@
 import axios from 'axios'
 import Form from 'vform'
 
+import Editor from '../../../components/Editor'
+
 export default {
   middleware: 'admin',
 
   layout: 'admin',
+
+  components: {
+    Editor
+  },
 
   metaInfo () {
     return { title: 'Admin panel. Create News Item page.' }
@@ -100,6 +105,12 @@ export default {
   }),
 
   methods: {
+
+    setContent( content ) {
+
+      this.form.post_content = content
+
+    },
 
     async create () {
 

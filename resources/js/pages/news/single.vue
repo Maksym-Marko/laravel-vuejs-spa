@@ -10,11 +10,9 @@
 
       <span>Date: {{ newsItem.created_at }}</span>
 
-      <div>
-
-        {{ newsItem.post_content }}
-
-      </div>
+      <div
+        v-html="newsItem.post_content"
+      ></div>
       
     </div>
 

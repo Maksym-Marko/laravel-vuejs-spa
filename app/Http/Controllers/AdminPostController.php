@@ -20,7 +20,11 @@ class AdminPostController extends Controller
     public function show()
     {
 
-        return Post::where( 'post_slug', request( 'slug' ) )->get();
+        $post = Post::where( 'post_slug', request( 'slug' ) )->get();
+
+        $post[0]->post_content = htmlspecialchars_decode( $post[0]->post_content );
+
+        return $post;
         
     }
 
@@ -37,6 +41,8 @@ class AdminPostController extends Controller
             'post_slug' => ['required', Rule::unique( 'posts', 'post_slug' )->ignore($post->id)],
 
         ]);
+
+        $attributes['post_content'] = mx_sanitize_content( $attributes['post_content'] );
 
         $post->update( $attributes );
 

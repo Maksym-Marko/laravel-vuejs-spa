@@ -18,7 +18,11 @@ class PostController extends Controller
     public function show()
     {
 
-        return Post::where( 'post_slug', request( 'slug' ) )->get();
+        $post = Post::where( 'post_slug', request( 'slug' ) )->get();
+
+        $post[0]->post_content = htmlspecialchars_decode( $post[0]->post_content );
+
+        return $post;
         
     }
 }
