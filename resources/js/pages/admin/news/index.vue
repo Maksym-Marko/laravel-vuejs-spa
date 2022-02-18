@@ -54,8 +54,8 @@
             >
               
               <td>
-                <router-link :to="'/admin/news/edit/' + item.post_slug" class="blockquote">
-                  {{ item.post_title }}
+                <router-link :to="'/admin/news/edit/' + item.slug" class="blockquote">
+                  {{ item.title }}
                 </router-link>
               </td>
 
@@ -66,7 +66,7 @@
                 
                 <div class="d-flex justify-content-between max-w-100px w-100">
                   
-                  <router-link :to="'/admin/news/edit/' + item.post_slug" class="text-success">
+                  <router-link :to="'/admin/news/edit/' + item.slug" class="text-success">
                     <i class="far fa-edit"></i>
                   </router-link>
 

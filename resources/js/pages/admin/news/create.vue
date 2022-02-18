@@ -6,55 +6,55 @@
       <div class="mb-3">
         <label class="form-label">Title</label>
         <input
-          v-model="form.post_title"
+          v-model="form.title"
           type="text"
           class="form-control"
-          :class="{ 'is-invalid': form.errors.has('post_title') }"
+          :class="{ 'is-invalid': form.errors.has('title') }"
         >
         <has-error
-          v-if="form.errors.has('post_title')"
-          :form="form" field="post_title"
+          v-if="form.errors.has('title')"
+          :form="form" field="title"
         />
       </div>
 
       <div class="mb-3">
         <label class="form-label">Post slug</label>
         <input
-          v-model="form.post_slug"
+          v-model="form.slug"
           type="text"
           class="form-control"
-          :class="{ 'is-invalid': form.errors.has('post_slug') }"
+          :class="{ 'is-invalid': form.errors.has('slug') }"
         >
         <has-error
-          v-if="form.errors.has('post_slug')"
-          :form="form" field="post_slug"
+          v-if="form.errors.has('slug')"
+          :form="form" field="slug"
         />
       </div>
 
       <div class="mb-3">
         <label class="form-label">Excerp</label>
         <textarea
-          v-model="form.post_excerpt"
+          v-model="form.excerpt"
           class="form-control"
-          :class="{ 'is-invalid': form.errors.has('post_excerpt') }"
+          :class="{ 'is-invalid': form.errors.has('excerpt') }"
         />
         <has-error
-          v-if="form.errors.has('post_excerpt')"
+          v-if="form.errors.has('excerpt')"
           :form="form"
-          field="post_excerpt"
+          field="excerpt"
         />
       </div>
 
       <div class="mb-3">
         <label class="form-label">Content</label>
         <editor
-          :content="form.post_content"
+          :content="form.content"
           @content="setContent"
         />
         <has-error
-          v-if="form.errors.has('post_content')"
+          v-if="form.errors.has('content')"
           :form="form"
-          field="post_content"
+          field="content"
         />
       </div>      
 
@@ -94,10 +94,10 @@ export default {
     newsItem: null,
 
     form: new Form({
-      post_title:   '',
-      post_excerpt: '',
-      post_content: '',
-      post_slug:    ''
+      title:   '',
+      excerpt: '',
+      content: '',
+      slug:    ''
     }),
 
     success: false
@@ -108,7 +108,7 @@ export default {
 
     setContent( content ) {
 
-      this.form.post_content = content
+      this.form.content = content
 
     },
 

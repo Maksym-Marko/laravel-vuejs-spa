@@ -12,10 +12,10 @@
       <div
         v-for="item in news"
         class="bg-white p-4 mb-4">
-        <h2>{{ item.post_title }}</h2>
-        <p>{{ item.post_excerpt }}</p>
+        <h2>{{ item.title }}</h2>
+        <p>{{ item.excerpt }}</p>
 
-        <router-link :to="'/news/' + item.post_slug">Read More</router-link>
+        <router-link :to="'/news/' + item.slug">Read More</router-link>
       </div>
       
     </div>

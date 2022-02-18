@@ -6,10 +6,10 @@
       <div class="mb-3">
         <label class="form-label">Title</label>
         <input
-          v-model="form.post_title"
+          v-model="form.title"
           type="text"
           class="form-control"
-          :class="{ 'is-invalid': form.errors.has('post_title') }"
+          :class="{ 'is-invalid': form.errors.has('title') }"
         >
         <has-error :form="form" field="post_title" />
       </div>
@@ -17,31 +17,31 @@
       <div class="mb-3">
         <label class="form-label">Post slug</label>
         <input
-          v-model="form.post_slug"
+          v-model="form.slug"
           type="text"
           class="form-control"
-          :class="{ 'is-invalid': form.errors.has('post_slug') }"
+          :class="{ 'is-invalid': form.errors.has('slug') }"
         >
-        <has-error :form="form" field="post_slug" />
+        <has-error :form="form" field="slug" />
       </div>
 
       <div class="mb-3">
         <label class="form-label">Excerp</label>
         <textarea
-          v-model="form.post_excerpt"
+          v-model="form.excerpt"
           class="form-control"
-          :class="{ 'is-invalid': form.errors.has('post_excerpt') }"
+          :class="{ 'is-invalid': form.errors.has('excerpt') }"
         />
-        <has-error :form="form" field="post_excerpt" />
+        <has-error :form="form" field="excerpt" />
       </div>
 
       <div class="mb-3">
         <label class="form-label">Content</label>
         <editor
-          :content="form.post_content"
+          :content="form.content"
           @content="setContent"
         />
-        <has-error :form="form" field="post_content" />
+        <has-error :form="form" field="content" />
       </div>
 
       <button type="submit" class="btn btn-primary">Save</button>
@@ -81,10 +81,10 @@ export default {
     newsItem: null,
 
     form: new Form({
-      post_title:   '',
-      post_excerpt: '',
-      post_content: '',
-      post_slug:    ''
+      title:   '',
+      excerpt: '',
+      content: '',
+      slug:    ''
     }),
 
     success: false
@@ -95,7 +95,7 @@ export default {
 
     setContent( content ) {
 
-      this.form.post_content = content
+      this.form.content = content
 
     },
 
@@ -149,8 +149,6 @@ export default {
 
               this.fillInForm()
 
-              this.tinymceInit()
-
             }
 
           } ) 
@@ -178,26 +176,6 @@ export default {
         this.$router.push( { name: 'admin.news' } )
 
       }, 2000 )
-
-    },
-
-    tinymceInit() {
-
-      const _this = this
-
-      tinymce.remove(); 
-
-      tinymce.init({
-        selector: '#tinymce',
-        cache_suffix: '?v=' + Date.now(),
-        init_instance_callback: function( editor ) {
-          editor.on( 'change', function( e ) {
-
-            _this.form.post_content = editor.getContent()
-
-          });
-        }
-      })
 
     }
 

@@ -6,12 +6,12 @@
       class="col-md-12 p-4"
     >
 
-      <h1 class="mb-4">{{ newsItem.post_title }}</h1>
+      <h1 class="mb-4">{{ newsItem.title }}</h1>
 
       <span>Date: {{ newsItem.created_at }}</span>
 
       <div
-        v-html="newsItem.post_content"
+        v-html="newsItem.content"
       ></div>
       
     </div>

@@ -5,18 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class News extends Model
 {
     use HasFactory;
 
+    protected $table = 'news';
+
     protected $fillable = [
-        'post_author',
-        'post_content',
-        'post_title',
-        'post_excerpt',
-        'post_status',
-        'post_slug',
-        'post_type'
+        'user_id',
+        'content',
+        'title',
+        'excerpt',
+        'status',
+        'slug'
     ];
 
 }

@@ -12,8 +12,8 @@ use App\Http\Controllers\Settings\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // 
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\AdminNewsController;
 
 
 /*
@@ -29,12 +29,15 @@ use App\Http\Controllers\AdminPostController;
 
 Route::group(['middleware' => 'admin:api'], function () {
 
-    Route::get( 'admin/get-news', [AdminPostController::class, 'index'] );
-    Route::post( 'admin/get-news-item', [AdminPostController::class, 'show'] );
+    Route::get( 'admin/get-news', [AdminNewsController::class, 'index'] );
+    Route::post( 'admin/get-news-item', [AdminNewsController::class, 'show'] );
 
-    Route::post( 'admin/news/create', [AdminPostController::class, 'store'] );
-    Route::post( 'admin/news/edit/{id}', [AdminPostController::class, 'update'] );
-    Route::post( 'admin/news/destroy/{id}', [AdminPostController::class, 'destroy'] );
+    Route::post( 'admin/news/create', [AdminNewsController::class, 'store'] );
+    Route::post( 'admin/news/edit/{id}', [AdminNewsController::class, 'update'] );
+    Route::post( 'admin/news/destroy/{id}', [AdminNewsController::class, 'destroy'] );
+
+    Route::post( 'admin/image-upload', [AdminNewsController::class, 'image_upload'] );
+   
 
 });
 
@@ -62,7 +65,7 @@ Route::group(['middleware' => 'guest:api'], function () {
 });
 
 // get news
-Route::get('get-news', [PostController::class, 'index'] );
+Route::get('get-news', [NewsController::class, 'index'] );
 
 // get news item
-Route::post('get-news-item', [PostController::class, 'show'] );
+Route::post('get-news-item', [NewsController::class, 'show'] );
