@@ -11,6 +11,9 @@
           <li>
             <router-link :to="{ name: 'admin.news' }" class="p-2 text-secondary d-block">News</router-link>
           </li>
+          <li>
+            <router-link :to="{ name: 'admin.pages' }" class="p-2 text-secondary d-block">Pages</router-link>
+          </li>
         </ul>
 
       </div>

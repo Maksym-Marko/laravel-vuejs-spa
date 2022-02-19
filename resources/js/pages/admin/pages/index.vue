@@ -8,8 +8,8 @@
     >
 
       <div class="d-flex justify-content-end mb-4">
-        <router-link :to="{ name: 'admin.news.create' }" class="btn btn-primary">
-          Add News Item
+        <router-link :to="{ name: 'admin.pages.create' }" class="btn btn-primary">
+          Add Page
         </router-link>
       </div>
       
@@ -47,15 +47,15 @@
           </thead>
 
           <tbody
-            v-if="news.length>0"
+            v-if="pages.length>0"
           >
             
             <tr
-              v-for="item in news"
+              v-for="item in pages"
             >
               
               <td>
-                <router-link :to="'/admin/news/edit/' + item.slug" class="blockquote">
+                <router-link :to="'/admin/pages/edit/' + item.slug" class="blockquote">
                   {{ item.title }}
                 </router-link>
               </td>
@@ -67,7 +67,7 @@
                 
                 <div class="d-flex justify-content-between max-w-100px w-100">
                   
-                  <router-link :to="'/admin/news/edit/' + item.slug" class="text-success">
+                  <router-link :to="'/admin/pages/edit/' + item.slug" class="text-success">
                     <i class="far fa-edit"></i>
                   </router-link>
 
@@ -104,7 +104,7 @@ export default {
   layout: 'admin',
 
   metaInfo () {
-    return { title: 'Admin panel. News page.' }
+    return { title: 'Admin panel. Pages.' }
   },
 
   data: () => ({
@@ -113,46 +113,46 @@ export default {
   }),
 
   computed: mapGetters({
-    news: 'admin/news/list'
+    pages: 'admin/pages/list'
   }),
 
   methods: {
 
     removePost( id ) {
 
-      if ( window.confirm( 'Do you want to delete this post?' ) ) {        
+      // if ( window.confirm( 'Do you want to delete this post?' ) ) {        
       
-        axios.post( '/api/admin/news/destroy/' + id, { post_id: id } )
-          .then( ( res ) => {
+      //   axios.post( '/api/admin/news/destroy/' + id, { post_id: id } )
+      //     .then( ( res ) => {
 
-            if( res.data === 'success' ) {
+      //       if( res.data === 'success' ) {
 
-              this.news.map( ( v, i ) => {
+      //         this.news.map( ( v, i ) => {
 
-                if( v.id === id ) {
+      //           if( v.id === id ) {
 
-                   this.news.splice( i, 1 )
+      //              this.news.splice( i, 1 )
 
-                }         
+      //           }         
 
-              } )
+      //         } )
 
-            }
+      //       }
 
-          } )
+      //     } )
 
-      }
+      // }
 
     },
 
-    async getNews() {
+    async getPages() {
 
-      if( this.news.length === 0 ) {
+      if( this.pages.length === 0 ) {
 
-        let { data } = await axios.get( '/api/admin/get-news' )
+        let { data } = await axios.get( '/api/admin/get-pages' )
 
-        // save news list
-        await this.$store.dispatch( 'admin/news/setNews', {
+        // save pages list
+        await this.$store.dispatch( 'admin/pages/setPages', {
           list: data
         } )
 
@@ -166,7 +166,7 @@ export default {
 
   mounted() {
 
-    this.getNews()
+    this.getPages()
 
   }
 
@@ -174,5 +174,5 @@ export default {
 </script>
 
 <style scoped>
-  
+
 </style>

@@ -3,6 +3,7 @@ function page (path) {
 }
 
 export default [
+  
   { path: '/', name: 'welcome', component: page('welcome.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
@@ -28,11 +29,23 @@ export default [
   { path: '/news', name: 'news', component: page('news/index.vue') },
   { path: '/news/:slug', name: 'news-single', component: page('news/single.vue') },
 
-  // admin panel
+  /*
+  * admin panel
+  */  
   { path: '/admin', name: 'admin', component: page('admin/index.vue') },
+
+  // news
   { path: '/admin/news', name: 'admin.news', component: page('admin/news/index.vue') },
-  { path: '/admin/news/edit/:slug', component: page('admin/news/edit.vue') },
   { path: '/admin/news/create', name: 'admin.news.create' ,component: page('admin/news/create.vue') },
+  { path: '/admin/news/edit/:slug', component: page('admin/news/edit.vue') },  
+
+  // pages
+  { path: '/admin/pages', name: 'admin.pages', component: page('admin/pages/index.vue') },
+  { path: '/admin/pages/create', name: 'admin.pages.create' ,component: page('admin/pages/create.vue') },
+  { path: '/admin/pages/edit/:slug', component: page('admin/pages/edit.vue') },
+
+  // pages from DB
+  // ...availabelPages,
 
   // 404
   { path: '*', name: 'page404', component: page('errors/404.vue') }

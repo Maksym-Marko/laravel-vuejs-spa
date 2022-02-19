@@ -15,7 +15,13 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Post slug</label>
+        <div class="d-flex justify-content-between">
+          <label class="form-label">Page slug</label>
+          <button
+            class="btn btn-primary"
+            @click.prevent="setSlug()"
+          >Create slug</button>
+        </div>
         <input
           v-model="form.slug"
           type="text"
@@ -23,16 +29,6 @@
           :class="{ 'is-invalid': form.errors.has('slug') }"
         >
         <has-error :form="form" field="slug" />
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Excerp</label>
-        <textarea
-          v-model="form.excerpt"
-          class="form-control"
-          :class="{ 'is-invalid': form.errors.has('excerpt') }"
-        />
-        <has-error :form="form" field="excerpt" />
       </div>
 
       <div class="mb-3">
@@ -59,10 +55,13 @@
 <script>
 import axios from 'axios'
 import Form from 'vform'
-
 import Editor from '../../../components/Editor'
 
+import { mxSlugCreatorMixin } from '../../../mixins/mxSlugCreatorMixin'
+
 export default {
+  mixins: [mxSlugCreatorMixin],
+
   middleware: 'admin',
 
   layout: 'admin',
@@ -78,11 +77,10 @@ export default {
   data: () => ({
     
     title: window.config.appName,
-    newsItem: null,
+    page: null,
 
     form: new Form({
       title:   '',
-      excerpt: '',
       content: '',
       slug:    ''
     }),
@@ -93,6 +91,24 @@ export default {
 
   methods: {
 
+    setSlug() {
+
+      if( this.form.slug !== '' ) {
+
+        if( confirm( 'Are you sure you want to change the slug?' ) ) {
+
+          this.form.slug = this.createSlug( this.form.title )
+
+        }
+
+      } else {
+
+        this.form.slug = this.createSlug( this.form.title )
+
+      }
+
+    },
+
     setContent( content ) {
 
       this.form.content = content
@@ -101,7 +117,7 @@ export default {
 
     async update () {
 
-      axios.post( '/api/admin/news/edit/' + this.newsItem.id, this.form )
+      axios.post( '/api/admin/pages/edit/' + this.page.id, this.form )
         .then( ( res ) => {
 
           this.form.errors.set( {} )
@@ -127,7 +143,7 @@ export default {
 
     },
 
-    getNewsItem() {
+    getPage() {
 
       if( this.$route.params.slug ) {
 
@@ -135,9 +151,8 @@ export default {
           slug: this.$route.params.slug
         }
 
-        axios.post( '/api/admin/get-news-item', data )
+        axios.post( '/api/admin/get-page', data )
           .then( ( res ) => {
-
 
             if( res.data.length === 0 ) {
 
@@ -145,7 +160,7 @@ export default {
 
             } else {
 
-              this.newsItem = res.data[0]
+              this.page = res.data[0]
 
               this.fillInForm()
 
@@ -160,7 +175,7 @@ export default {
     fillInForm() {
 
       this.form.keys().forEach(key => {
-        this.form[key] = this.newsItem[key]
+        this.form[key] = this.page[key]
       })
 
     },
@@ -173,7 +188,7 @@ export default {
 
         this.success = false
 
-        this.$router.push( { name: 'admin.news' } )
+        this.$router.push( { name: 'admin.pages' } )
 
       }, 2000 )
 
@@ -183,7 +198,7 @@ export default {
 
   mounted() {
 
-    this.getNewsItem()    
+    this.getPage()    
 
   }
 
@@ -191,8 +206,6 @@ export default {
 </script>
 
 <style scoped>
-  /*@import 'tinymce/skins/ui/oxide/skin.min.css';*/
-
   .mx-success {
     left: unset;
   }

@@ -115,3 +115,7 @@ export default {
 
 }
 </script>
+
+<style scoped>
+  @import 'tinymce/skins/ui/oxide/skin.min.css';
+</style>

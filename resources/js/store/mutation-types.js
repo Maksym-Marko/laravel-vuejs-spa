@@ -17,3 +17,6 @@ export const SET_NEWS = 'SET_NEWS'
 */
 // news.js
 export const ADMIN_SET_NEWS = 'ADMIN_SET_NEWS'
+
+// pages.js
+export const ADMIN_SET_PAGES = 'ADMIN_SET_PAGES'

@@ -18,3 +18,29 @@
   height: 2rem;
   margin: -.375rem 0;
 }
+
+.mx-publish {
+  padding: 8px 18px;
+  background-color: #8fd18f;
+  border-radius: 21px;
+  color: #fff;
+  line-height: 18px;
+  display: inline-block;
+}
+.max-w-100px {
+  max-width: 100px;
+}
+.table > :not(caption) > * > * {
+  border-bottom-width: 0;
+}
+.table thead {
+  border-color: #000000;
+  border-bottom-width: 2px;
+}
+.table tbody tr {
+  border-color: #d3d3d3;
+  border-bottom-width: 1px;
+}
+.title {
+  font-size: 40px;
+}

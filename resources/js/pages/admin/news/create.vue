@@ -18,7 +18,13 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Post slug</label>
+        <div class="d-flex justify-content-between">
+          <label class="form-label">Post slug</label>
+          <button
+            class="btn btn-primary"
+            @click.prevent="setSlug()"
+          >Create slug</button>
+        </div>
         <input
           v-model="form.slug"
           type="text"
@@ -73,10 +79,13 @@
 <script>
 import axios from 'axios'
 import Form from 'vform'
-
 import Editor from '../../../components/Editor'
 
+import { mxSlugCreatorMixin } from '../../../mixins/mxSlugCreatorMixin'
+
 export default {
+  mixins: [mxSlugCreatorMixin],
+
   middleware: 'admin',
 
   layout: 'admin',
@@ -105,6 +114,24 @@ export default {
   }),
 
   methods: {
+
+    setSlug() {
+
+      if( this.form.slug !== '' ) {
+
+        if( confirm( 'Are you sure you want to change the slug?' ) ) {
+
+          this.form.slug = this.createSlug( this.form.title )
+
+        }
+
+      } else {
+
+        this.form.slug = this.createSlug( this.form.title )
+
+      }
+
+    },
 
     setContent( content ) {
 

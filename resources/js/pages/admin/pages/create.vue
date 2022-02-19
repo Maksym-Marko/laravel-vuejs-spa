@@ -1,7 +1,7 @@
 <template>
   <div>
     
-    <form @submit.prevent="update">      
+    <form @submit.prevent="create">      
       
       <div class="mb-3">
         <label class="form-label">Title</label>
@@ -11,28 +11,31 @@
           class="form-control"
           :class="{ 'is-invalid': form.errors.has('title') }"
         >
-        <has-error :form="form" field="post_title" />
+        <has-error
+          v-if="form.errors.has('title')"
+          :form="form" field="title"
+        />
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Post slug</label>
+        <div class="d-flex justify-content-between">
+          <label class="form-label">Page slug</label>
+          <button
+            class="btn btn-primary"
+            @click.prevent="setSlug()"
+          >Create slug</button>
+        </div>
+        
         <input
           v-model="form.slug"
           type="text"
           class="form-control"
           :class="{ 'is-invalid': form.errors.has('slug') }"
         >
-        <has-error :form="form" field="slug" />
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Excerp</label>
-        <textarea
-          v-model="form.excerpt"
-          class="form-control"
-          :class="{ 'is-invalid': form.errors.has('excerpt') }"
+        <has-error
+          v-if="form.errors.has('slug')"
+          :form="form" field="slug"
         />
-        <has-error :form="form" field="excerpt" />
       </div>
 
       <div class="mb-3">
@@ -41,17 +44,21 @@
           :content="form.content"
           @content="setContent"
         />
-        <has-error :form="form" field="content" />
-      </div>
+        <has-error
+          v-if="form.errors.has('content')"
+          :form="form"
+          field="content"
+        />
+      </div>      
 
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="submit" class="btn btn-primary">Create</button>
 
     </form>
 
     <div
       v-if="success"
       class="bg-success blockquote d-inline-block fixed-bottom m-4 p-4 rounded-3 text-center text-white w-25 mx-success"
-    >Saved!</div>
+    >Created!</div>
 
   </div>
 </template>
@@ -59,10 +66,13 @@
 <script>
 import axios from 'axios'
 import Form from 'vform'
-
 import Editor from '../../../components/Editor'
 
+import { mxSlugCreatorMixin } from '../../../mixins/mxSlugCreatorMixin'
+
 export default {
+  mixins: [mxSlugCreatorMixin],
+
   middleware: 'admin',
 
   layout: 'admin',
@@ -72,17 +82,15 @@ export default {
   },
 
   metaInfo () {
-    return { title: 'Admin panel. Edit News Item page.' }
+    return { title: 'Admin panel. Create News Item page.' }
   },
 
   data: () => ({
-    
     title: window.config.appName,
     newsItem: null,
 
     form: new Form({
       title:   '',
-      excerpt: '',
       content: '',
       slug:    ''
     }),
@@ -93,15 +101,33 @@ export default {
 
   methods: {
 
+    setSlug() {
+
+      if( this.form.slug !== '' ) {
+
+        if( confirm( 'Are you sure you want to change the slug?' ) ) {
+
+          this.form.slug = this.createSlug( this.form.title )
+
+        }
+
+      } else {
+
+        this.form.slug = this.createSlug( this.form.title )
+
+      }
+
+    },
+
     setContent( content ) {
 
       this.form.content = content
 
     },
 
-    async update () {
+    async create () {
 
-      axios.post( '/api/admin/news/edit/' + this.newsItem.id, this.form )
+      axios.post( '/api/admin/pages/create', this.form )
         .then( ( res ) => {
 
           this.form.errors.set( {} )
@@ -127,44 +153,6 @@ export default {
 
     },
 
-    getNewsItem() {
-
-      if( this.$route.params.slug ) {
-
-        let data = {
-          slug: this.$route.params.slug
-        }
-
-        axios.post( '/api/admin/get-news-item', data )
-          .then( ( res ) => {
-
-
-            if( res.data.length === 0 ) {
-
-              this.$router.push( { name: 'page404'} )
-
-            } else {
-
-              this.newsItem = res.data[0]
-
-              this.fillInForm()
-
-            }
-
-          } ) 
-
-      }
-
-    },
-
-    fillInForm() {
-
-      this.form.keys().forEach(key => {
-        this.form[key] = this.newsItem[key]
-      })
-
-    },
-
     showSuccess() {
 
       this.success = true
@@ -173,7 +161,7 @@ export default {
 
         this.success = false
 
-        this.$router.push( { name: 'admin.news' } )
+        this.$router.push( { name: 'admin.pages' } )
 
       }, 2000 )
 
@@ -181,9 +169,28 @@ export default {
 
   },
 
-  mounted() {
+  watch: {
 
-    this.getNewsItem()    
+    'form': {
+      handler: function( v ) {
+
+        this.form.keys().forEach((key) => {
+
+          if( this.form[key] !== '' ) {
+
+            if( this.form.errors.errors[key] !== undefined ) {
+
+              delete this.form.errors.errors[key]
+
+            }
+
+          }
+
+        })        
+
+      },
+      deep: true
+    },
 
   }
 
@@ -191,8 +198,6 @@ export default {
 </script>
 
 <style scoped>
-  /*@import 'tinymce/skins/ui/oxide/skin.min.css';*/
-
   .mx-success {
     left: unset;
   }

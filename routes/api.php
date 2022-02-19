@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 
 // 
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminNewsController;
-
+use App\Http\Controllers\AdminPageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,15 +30,21 @@ use App\Http\Controllers\AdminNewsController;
 
 Route::group(['middleware' => 'admin:api'], function () {
 
+    // news
     Route::get( 'admin/get-news', [AdminNewsController::class, 'index'] );
-    Route::post( 'admin/get-news-item', [AdminNewsController::class, 'show'] );
-
+    Route::post( 'admin/get-news-item', [AdminNewsController::class, 'show'] );    
     Route::post( 'admin/news/create', [AdminNewsController::class, 'store'] );
     Route::post( 'admin/news/edit/{id}', [AdminNewsController::class, 'update'] );
     Route::post( 'admin/news/destroy/{id}', [AdminNewsController::class, 'destroy'] );
 
-    Route::post( 'admin/image-upload', [AdminNewsController::class, 'image_upload'] );
-   
+    // pages
+    Route::get( 'admin/get-pages', [AdminPageController::class, 'index'] );
+    Route::post( 'admin/pages/create', [AdminPageController::class, 'store'] );
+    Route::post( 'admin/get-page', [AdminPageController::class, 'show'] );
+    Route::post( 'admin/pages/edit/{id}', [AdminPageController::class, 'update'] );
+
+    // todo
+    Route::post( 'admin/image-upload', [AdminNewsController::class, 'image_upload'] );   
 
 });
 
@@ -69,3 +76,6 @@ Route::get('get-news', [NewsController::class, 'index'] );
 
 // get news item
 Route::post('get-news-item', [NewsController::class, 'show'] );
+
+// pages
+Route::get( 'get-available-pages', [PageController::class, 'index'] );
