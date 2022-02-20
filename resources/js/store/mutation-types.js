@@ -12,6 +12,9 @@ export const SET_LOCALE = 'SET_LOCALE'
 // news.js
 export const SET_NEWS = 'SET_NEWS'
 
+// pages.js
+export const ADD_PAGE = 'ADD_PAGE'
+
 /*
 * Admin panel
 */

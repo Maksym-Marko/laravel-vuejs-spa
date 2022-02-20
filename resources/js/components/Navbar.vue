@@ -25,6 +25,24 @@
               News
             </router-link>
           </li>
+
+          <li class="nav-item">
+            <router-link :to="{ path: '/some-page-1' }" class="nav-link">
+              some-page-1
+            </router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link :to="{ path: '/home-page' }" class="nav-link">
+              home-page
+            </router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link :to="{ path: '/some-pasfadsa' }" class="nav-link">
+              some-pafdsa
+            </router-link>
+          </li>
           
         </ul>
 

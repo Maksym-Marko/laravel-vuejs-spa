@@ -20,7 +20,11 @@ class NewsController extends Controller
 
         $post = News::where( 'slug', request( 'slug' ) )->get();
 
-        $post[0]->content = htmlspecialchars_decode( $post[0]->content );
+        if( isset( $post[0] ) ) {
+
+            $post[0]->content = htmlspecialchars_decode( $post[0]->content );
+
+        }        
 
         return $post;
         

@@ -78,4 +78,5 @@ Route::get('get-news', [NewsController::class, 'index'] );
 Route::post('get-news-item', [NewsController::class, 'show'] );
 
 // pages
-Route::get( 'get-available-pages', [PageController::class, 'index'] );
+// Route::get( 'get-available-pages', [PageController::class, 'index'] );
+Route::post('get-page/{slug}', [PageController::class, 'show'] );

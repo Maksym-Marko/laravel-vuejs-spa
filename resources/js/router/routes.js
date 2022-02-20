@@ -44,8 +44,10 @@ export default [
   { path: '/admin/pages/create', name: 'admin.pages.create' ,component: page('admin/pages/create.vue') },
   { path: '/admin/pages/edit/:slug', component: page('admin/pages/edit.vue') },
 
-  // pages from DB
-  // ...availabelPages,
+  /*
+  * pages from DB
+  */
+  { path: '/:slug', component: page('page.vue') },
 
   // 404
   { path: '*', name: 'page404', component: page('errors/404.vue') }
