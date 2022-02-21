@@ -36,6 +36,7 @@
           v-if="form.errors.has('slug')"
           :form="form" field="slug"
         />
+
       </div>
 
       <div class="mb-3">
@@ -44,6 +45,7 @@
           :content="form.content"
           @content="setContent"
         />
+
         <has-error
           v-if="form.errors.has('content')"
           :form="form"
@@ -171,26 +173,28 @@ export default {
 
   watch: {
 
-    'form': {
-      handler: function( v ) {
+    // 'form': {
+    //   handler: function( v ) {
 
-        this.form.keys().forEach((key) => {
+    //     this.form.keys().forEach((key) => {
 
-          if( this.form[key] !== '' ) {
+    //       if( this.form[key] !== '' ) {
 
-            if( this.form.errors.errors[key] !== undefined ) {
+    //         if( this.form.errors.errors[key] !== undefined ) {
 
-              delete this.form.errors.errors[key]
+    //           delete this.form.errors.errors[key]
 
-            }
+    //         }
 
-          }
+    //         console.log( this.form.errors.errors[key] )
 
-        })        
+    //       }
 
-      },
-      deep: true
-    },
+    //     })        
+
+    //   },
+    //   deep: true
+    // },
 
   }
 

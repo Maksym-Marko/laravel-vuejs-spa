@@ -17,6 +17,9 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminNewsController;
 use App\Http\Controllers\AdminPageController;
 
+// image
+use App\Http\Controllers\ImageUploadController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,7 +47,7 @@ Route::group(['middleware' => 'admin:api'], function () {
     Route::post( 'admin/pages/edit/{id}', [AdminPageController::class, 'update'] );
 
     // todo
-    Route::post( 'admin/image-upload', [AdminNewsController::class, 'image_upload'] );   
+    Route::post( 'admin/image-upload', [ImageUploadController::class, 'saveImage'] );   
 
 });
 

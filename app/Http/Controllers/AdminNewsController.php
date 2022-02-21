@@ -82,11 +82,4 @@ class AdminNewsController extends Controller
 
     }
 
-    public function image_upload()
-    {
-
-        return 133;
-
-    }
-
 }

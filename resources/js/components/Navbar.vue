@@ -39,8 +39,8 @@
           </li>
 
           <li class="nav-item">
-            <router-link :to="{ path: '/some-pasfadsa' }" class="nav-link">
-              some-pafdsa
+            <router-link :to="{ path: '/love-olenka' }" class="nav-link">
+              Olenka
             </router-link>
           </li>
           
