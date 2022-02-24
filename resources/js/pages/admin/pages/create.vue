@@ -57,11 +57,6 @@
 
     </form>
 
-    <div
-      v-if="success"
-      class="bg-success blockquote d-inline-block fixed-bottom m-4 p-4 rounded-3 text-center text-white w-25 mx-success"
-    >Created!</div>
-
   </div>
 </template>
 
@@ -134,7 +129,11 @@ export default {
 
           this.form.errors.set( {} )
 
-          this.showSuccess();
+          this.$store.dispatch( 'notification/notify', {
+            message: 'Created!'
+          } )
+
+          this.$router.push( { name: 'admin.pages' } )
 
         } )
         .catch( ( error ) => {
@@ -152,20 +151,6 @@ export default {
           this.form.errors.set( errors )
 
         } )
-
-    },
-
-    showSuccess() {
-
-      this.success = true
-
-      setTimeout( () => {
-
-        this.success = false
-
-        this.$router.push( { name: 'admin.pages' } )
-
-      }, 2000 )
 
     }
 

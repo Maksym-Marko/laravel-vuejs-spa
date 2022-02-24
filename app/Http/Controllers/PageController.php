@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Page;
-use Illuminate\Support\Facades\DB;
 
 class PageController extends Controller
 {
@@ -14,15 +13,15 @@ class PageController extends Controller
 
         return Page::all();
         
-    }
+    }    
 
     public function show( $slug )
     {
 
-        $pages = DB::table( 'pages' )
-            ->where( 'slug', $slug )
-            ->where(  'status', 'publish'  )
-            ->get(); // faster then "->first()"
+        $pages = Page::where( [
+            'slug'      => $slug,
+            'status'    => 'publish'
+        ] )->get();
 
         if( ! isset( $pages[0] ) ) {
 
@@ -32,9 +31,24 @@ class PageController extends Controller
             
         $pages[0]->content = htmlspecialchars_decode( $pages[0]->content );
 
-        return $pages[0];
+        return $pages[0];        
 
-        
+    }
+
+    public function getById( $id )
+    {
+
+        $page = Page::findOrFail( $id );
+
+        if( ! isset( $page->content ) ) {
+
+            return $page;
+
+        }
+            
+        $page->content = htmlspecialchars_decode( $page->content );
+
+        return $page;
 
     }
 

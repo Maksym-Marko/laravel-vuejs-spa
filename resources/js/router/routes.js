@@ -4,7 +4,7 @@ function page (path) {
 
 export default [
   
-  { path: '/', name: 'welcome', component: page('welcome.vue') },
+  { path: '/', name: 'welcome', component: page('homePage.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
@@ -43,6 +43,9 @@ export default [
   { path: '/admin/pages', name: 'admin.pages', component: page('admin/pages/index.vue') },
   { path: '/admin/pages/create', name: 'admin.pages.create' ,component: page('admin/pages/create.vue') },
   { path: '/admin/pages/edit/:slug', component: page('admin/pages/edit.vue') },
+
+  // settings page
+  { path: '/admin/settings', name: 'admin.settings', component: page('admin/settings/index.vue') },
 
   /*
   * pages from DB

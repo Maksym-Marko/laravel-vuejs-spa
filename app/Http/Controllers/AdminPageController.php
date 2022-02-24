@@ -69,4 +69,13 @@ class AdminPageController extends Controller
 
     }
 
+    public function getAvailablePages()
+    {
+
+        return Page::where( 'status', 'publish' )
+            ->orderBy( 'id', 'desc' )
+            ->get();
+        
+    }
+
 }

@@ -15,7 +15,13 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label">Post slug</label>
+        <div class="d-flex justify-content-between">
+          <label class="form-label">Post slug</label>
+          <button
+            class="btn btn-primary"
+            @click.prevent="setSlug()"
+          >Create slug</button>
+        </div>
         <input
           v-model="form.slug"
           type="text"
@@ -46,12 +52,7 @@
 
       <button type="submit" class="btn btn-primary">Save</button>
 
-    </form>
-
-    <div
-      v-if="success"
-      class="bg-success blockquote d-inline-block fixed-bottom m-4 p-4 rounded-3 text-center text-white w-25 mx-success"
-    >Saved!</div>
+    </form>    
 
   </div>
 </template>
@@ -62,7 +63,11 @@ import Form from 'vform'
 
 import Editor from '../../../components/Editor'
 
+import { mxSlugCreatorMixin } from '../../../mixins/mxSlugCreatorMixin'
+
 export default {
+  mixins: [mxSlugCreatorMixin],
+  
   middleware: 'admin',
 
   layout: 'admin',
@@ -93,6 +98,24 @@ export default {
 
   methods: {
 
+    setSlug() {
+
+      if( this.form.slug !== '' ) {
+
+        if( confirm( 'Are you sure you want to change the slug?' ) ) {
+
+          this.form.slug = this.createSlug( this.form.title )
+
+        }
+
+      } else {
+
+        this.form.slug = this.createSlug( this.form.title )
+
+      }
+
+    },
+
     setContent( content ) {
 
       this.form.content = content
@@ -106,7 +129,11 @@ export default {
 
           this.form.errors.set( {} )
 
-          this.showSuccess();
+          this.$store.dispatch( 'notification/notify', {
+            message: 'Saved!'
+          } )
+
+          this.$router.push( { name: 'admin.news' } )
 
         } )
         .catch( ( error ) => {
@@ -162,20 +189,6 @@ export default {
       this.form.keys().forEach(key => {
         this.form[key] = this.newsItem[key]
       })
-
-    },
-
-    showSuccess() {
-
-      this.success = true
-
-      setTimeout( () => {
-
-        this.success = false
-
-        this.$router.push( { name: 'admin.news' } )
-
-      }, 2000 )
 
     }
 

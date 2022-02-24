@@ -15,6 +15,9 @@ export const SET_NEWS = 'SET_NEWS'
 // pages.js
 export const ADD_PAGE = 'ADD_PAGE'
 
+// notification.js
+export const NOTIFY = 'NOTIFY'
+
 /*
 * Admin panel
 */

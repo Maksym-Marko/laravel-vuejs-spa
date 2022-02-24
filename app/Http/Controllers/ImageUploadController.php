@@ -64,11 +64,11 @@ class ImageUploadController extends Controller
                 'user_id' => auth()->id()
             ] );
 
-            return json_encode( [ 'location' => $relativePath ] );
+            return json_encode( [ 'location' => $file_name ] );
 
         }
 
-        return 'File Upload. Unexpected error';
+        return 'File Upload. Unexpected error.';
 
     }
 

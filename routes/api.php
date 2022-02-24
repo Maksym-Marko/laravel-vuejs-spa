@@ -16,6 +16,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\AdminNewsController;
 use App\Http\Controllers\AdminPageController;
+use App\Http\Controllers\OptionController;
 
 // image
 use App\Http\Controllers\ImageUploadController;
@@ -46,8 +47,12 @@ Route::group(['middleware' => 'admin:api'], function () {
     Route::post( 'admin/get-page', [AdminPageController::class, 'show'] );
     Route::post( 'admin/pages/edit/{id}', [AdminPageController::class, 'update'] );
 
-    // todo
-    Route::post( 'admin/image-upload', [ImageUploadController::class, 'saveImage'] );   
+    // image upload
+    Route::post( 'admin/image-upload', [ImageUploadController::class, 'saveImage'] );
+
+    // settings page
+    Route::get( 'admin/get-available-pages', [AdminPageController::class, 'getAvailablePages'] );
+    Route::post( 'admin/set-options', [OptionController::class, 'setOptions'] );    
 
 });
 
@@ -81,5 +86,6 @@ Route::get('get-news', [NewsController::class, 'index'] );
 Route::post('get-news-item', [NewsController::class, 'show'] );
 
 // pages
-// Route::get( 'get-available-pages', [PageController::class, 'index'] );
 Route::post('get-page/{slug}', [PageController::class, 'show'] );
+Route::post('get-page-by-id/{id}', [PageController::class, 'getById'] );
+Route::get( 'get-home-page', [OptionController::class, 'getHomePage'] );

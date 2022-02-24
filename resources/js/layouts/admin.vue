@@ -14,6 +14,10 @@
           <li>
             <router-link :to="{ name: 'admin.pages' }" class="p-2 text-secondary d-block">Pages</router-link>
           </li>
+
+          <li>
+            <router-link :to="{ name: 'admin.settings' }" class="p-2 text-secondary d-block">Settings</router-link>
+          </li>
         </ul>
 
       </div>
@@ -60,6 +64,8 @@
       </div>
 
     </div>
+
+    <Notification />
   </div>
 </template>
 
@@ -67,8 +73,14 @@
 
 import { mapGetters } from 'vuex'
 
+import Notification from '../components/Notification.vue'
+
 export default {
   name: 'AdminLayout',
+
+  components: {
+    Notification
+  },
 
   computed: mapGetters({
     user: 'auth/user'
